@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp6lxfpt2wrka"]
+
+[ext_resource type="PackedScene" uid="uid://bp20wpas8v7u3" path="res://game/entity/static_entity.tscn" id="1_gnd1l"]
+[ext_resource type="Texture2D" uid="uid://bbx1fqlicadpc" path="res://assets/objects/box.png" id="2_afg24"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h0kki"]
+radius = 44.0114
+
+[node name="Box" instance=ExtResource("1_gnd1l")]
+
+[node name="HitAreaComponent2D" parent="." index="1"]
+position = Vector2(-4, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitAreaComponent2D" index="0"]
+position = Vector2(4, -3)
+shape = SubResource("CircleShape2D_h0kki")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
+position = Vector2(-4, 2)
+polygon = PackedVector2Array(-27, -32, 11, -40, 36, -30, 34, 21, 4, 35, -32, 19)
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="3"]
+position = Vector2(-4, 3)
+texture = ExtResource("2_afg24")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp20wpas8v7u3"]
+
+[ext_resource type="Script" path="res://core/damage_components/health_component.gd" id="1_7ojhn"]
+[ext_resource type="Script" path="res://game/entity/static_entity.gd" id="1_g08gg"]
+[ext_resource type="Script" path="res://core/damage_components/2d/hit_area_component.gd" id="2_50hl2"]
+
+[node name="StaticEntity" type="StaticBody2D"]
+script = ExtResource("1_g08gg")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("1_7ojhn")
+max_health = 10
+
+[node name="HitAreaComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("2_50hl2")
+health_component = NodePath("")

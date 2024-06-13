@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtol24akmqixn"]
+
+[ext_resource type="Script" path="res://game/entity/entity.gd" id="1_6ragb"]
+[ext_resource type="Script" path="res://core/damage_components/health_component.gd" id="2_068fc"]
+[ext_resource type="Script" path="res://core/damage_components/2d/hit_area_component.gd" id="3_cxc3x"]
+
+[node name="Entity" type="CharacterBody2D"]
+script = ExtResource("1_6ragb")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_068fc")
+max_health = 10
+
+[node name="HitAreaComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("3_cxc3x")
+health_component = NodePath("../HealthComponent")

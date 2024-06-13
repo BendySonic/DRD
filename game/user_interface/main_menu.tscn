@@ -1,0 +1,117 @@
+[gd_scene load_steps=7 format=3 uid="uid://pg107sskwqdf"]
+
+[ext_resource type="Script" path="res://game/user_interface/main_menu.gd" id="1_h1lnw"]
+[ext_resource type="Script" path="res://core/ui/control_sounds_component.gd" id="2_eb3g1"]
+[ext_resource type="PackedScene" uid="uid://bnt3uacv55nwv" path="res://game/user_interface/settings.tscn" id="2_hj6gs"]
+[ext_resource type="AudioStream" uid="uid://8alplouulrdo" path="res://assets/ui/click2.wav" id="3_uovc3"]
+[ext_resource type="AudioStream" uid="uid://ctre8vdeyxrtj" path="res://assets/ui/click1.wav" id="4_5xs1d"]
+[ext_resource type="Texture2D" uid="uid://b68ay3udqc5lc" path="res://assets/background.png" id="5_sltvp"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_h1lnw")
+started_scene = "res://game/level/test_level.tscn"
+
+[node name="ControlSoundsComponent" type="Node" parent="." node_paths=PackedStringArray("controls_container")]
+script = ExtResource("2_eb3g1")
+controls_container = [NodePath("../Control")]
+button_pressed_stream = ExtResource("4_5xs1d")
+option_selected_stream = ExtResource("3_uovc3")
+slider_drag_stream = ExtResource("4_5xs1d")
+slider_changed_stream = ExtResource("3_uovc3")
+tab_selected_stream = ExtResource("4_5xs1d")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ControlSoundsComponent"]
+stream = ExtResource("3_uovc3")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_sltvp")
+expand_mode = 1
+
+[node name="ButtonsMarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -79.5
+offset_right = 165.0
+offset_bottom = 79.5
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Buttons" type="PanelContainer" parent="Control/ButtonsMarginContainer"]
+custom_minimum_size = Vector2(135, 100)
+layout_mode = 2
+
+[node name="CenterContainer" type="MarginContainer" parent="Control/ButtonsMarginContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ButtonsMarginContainer/Buttons/CenterContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="Control/ButtonsMarginContainer/Buttons/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Начать"
+
+[node name="SettingsButton" type="Button" parent="Control/ButtonsMarginContainer/Buttons/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Настройки"
+
+[node name="ExitButton" type="Button" parent="Control/ButtonsMarginContainer/Buttons/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Выход"
+
+[node name="SettingsMarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -140.0
+offset_right = 225.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Settings" parent="SettingsMarginContainer" instance=ExtResource("2_hj6gs")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2

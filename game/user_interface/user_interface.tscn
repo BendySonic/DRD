@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5g62h42xdpyo"]
+
+[ext_resource type="PackedScene" uid="uid://b5or4r1h5ti7x" path="res://game/user_interface/hud.tscn" id="1_wbqqx"]
+[ext_resource type="PackedScene" uid="uid://bqrgi4gamtasr" path="res://game/user_interface/pause_menu.tscn" id="2_tlt8d"]
+
+[node name="UserInterface" type="CanvasLayer"]
+
+[node name="Hud" parent="." instance=ExtResource("1_wbqqx")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_tlt8d")]
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

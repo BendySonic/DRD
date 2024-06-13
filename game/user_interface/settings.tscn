@@ -1,0 +1,277 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnt3uacv55nwv"]
+
+[ext_resource type="Script" path="res://game/user_interface/settings.gd" id="1_ghwof"]
+[ext_resource type="Script" path="res://core/ui/control_sounds_component.gd" id="2_bo0vr"]
+[ext_resource type="AudioStream" uid="uid://ctre8vdeyxrtj" path="res://assets/ui/click1.wav" id="3_me07s"]
+[ext_resource type="AudioStream" uid="uid://8alplouulrdo" path="res://assets/ui/click2.wav" id="4_xyc3i"]
+
+[node name="Settings" type="Control"]
+custom_minimum_size = Vector2(420, 250)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -125.0
+offset_right = 210.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ghwof")
+
+[node name="ControlSoundsComponent" type="Node" parent="." node_paths=PackedStringArray("controls_container")]
+script = ExtResource("2_bo0vr")
+controls_container = [NodePath("../TabContainer")]
+button_pressed_stream = ExtResource("3_me07s")
+option_selected_stream = ExtResource("4_xyc3i")
+slider_drag_stream = ExtResource("3_me07s")
+slider_changed_stream = ExtResource("4_xyc3i")
+tab_selected_stream = ExtResource("3_me07s")
+custom_bus_for_controls = {
+NodePath("../TabContainer/Звук/MarginContainer/VBoxContainer/HBoxContainer2/MusicHSlider"): 2,
+NodePath("../TabContainer/Звук/MarginContainer/VBoxContainer/HBoxContainer3/SfxHSlider"): 1
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ControlSoundsComponent"]
+stream = ExtResource("4_xyc3i")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(420, 240)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 1
+tab_focus_mode = 0
+
+[node name="Звук" type="ScrollContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Звук"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Звук/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Звук/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Звук/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Общая громкость"
+
+[node name="MasterHSlider" type="HSlider" parent="TabContainer/Звук/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+min_value = -60.0
+max_value = 10.0
+value = 10.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Звук/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Звук/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Громкость музыки"
+
+[node name="MusicHSlider" type="HSlider" parent="TabContainer/Звук/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+min_value = -60.0
+max_value = 10.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Звук/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Звук/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Громкость эффектов"
+
+[node name="SfxHSlider" type="HSlider" parent="TabContainer/Звук/MarginContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+min_value = -60.0
+max_value = 10.0
+
+[node name="Видео" type="ScrollContainer" parent="TabContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Видео"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Видео/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="WindowHBoxContainer" type="HBoxContainer" parent="TabContainer/Видео/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Видео/MarginContainer/VBoxContainer/WindowHBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Окно"
+
+[node name="WindowOptionButton" type="OptionButton" parent="TabContainer/Видео/MarginContainer/VBoxContainer/WindowHBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+item_count = 2
+selected = 0
+popup/item_0/text = "windowed"
+popup/item_0/id = 0
+popup/item_1/text = "fullscreen"
+popup/item_1/id = 1
+
+[node name="VsyncHBoxContainer" type="HBoxContainer" parent="TabContainer/Видео/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Видео/MarginContainer/VBoxContainer/VsyncHBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Вертикальная синхронизация"
+
+[node name="VSyncCheckBox" type="CheckBox" parent="TabContainer/Видео/MarginContainer/VBoxContainer/VsyncHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+
+[node name="Scaling3dHBoxContainer" type="HBoxContainer" parent="TabContainer/Видео/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Видео/MarginContainer/VBoxContainer/Scaling3dHBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Маштабирование 3D"
+
+[node name="ScalingOptionButton" type="OptionButton" parent="TabContainer/Видео/MarginContainer/VBoxContainer/Scaling3dHBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "Bilinear"
+popup/item_0/id = 2
+popup/item_1/text = "FSR"
+popup/item_1/id = 0
+popup/item_2/text = "FSR2"
+popup/item_2/id = 1
+
+[node name="TaaHBoxContainer" type="HBoxContainer" parent="TabContainer/Видео/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Видео/MarginContainer/VBoxContainer/TaaHBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "использовать TAA"
+
+[node name="TAACheckBox" type="CheckBox" parent="TabContainer/Видео/MarginContainer/VBoxContainer/TaaHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+
+[node name="MSAA2dHBoxContainer" type="HBoxContainer" parent="TabContainer/Видео/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Видео/MarginContainer/VBoxContainer/MSAA2dHBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Сглаживание 2D"
+
+[node name="MSAA2DOptionButton" type="OptionButton" parent="TabContainer/Видео/MarginContainer/VBoxContainer/MSAA2dHBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+item_count = 4
+selected = 0
+popup/item_0/text = "Disabled"
+popup/item_0/id = 2
+popup/item_1/text = "2x"
+popup/item_1/id = 0
+popup/item_2/text = "4x"
+popup/item_2/id = 1
+popup/item_3/text = "8x"
+popup/item_3/id = 3
+
+[node name="MSAA3dHBoxContainer" type="HBoxContainer" parent="TabContainer/Видео/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label" type="Label" parent="TabContainer/Видео/MarginContainer/VBoxContainer/MSAA3dHBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Сглаживание 3D"
+
+[node name="MSAA3DOptionButton" type="OptionButton" parent="TabContainer/Видео/MarginContainer/VBoxContainer/MSAA3dHBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+item_count = 4
+selected = 0
+popup/item_0/text = "Disabled"
+popup/item_0/id = 2
+popup/item_1/text = "2x"
+popup/item_1/id = 0
+popup/item_2/text = "4x"
+popup/item_2/id = 1
+popup/item_3/text = "8x"
+popup/item_3/id = 3
