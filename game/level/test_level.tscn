@@ -21,3 +21,4 @@ position = Vector2(326, 192)
 position = Vector2(-235, -133)
 
 [node name="CoolGuy" parent="." index="4" instance=ExtResource("2_e7bak")]
+movement_speed = 60.0

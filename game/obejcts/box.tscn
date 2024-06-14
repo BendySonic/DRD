@@ -1,15 +1,113 @@
-[gd_scene load_steps=4 format=3 uid="uid://bp6lxfpt2wrka"]
+[gd_scene load_steps=13 format=3 uid="uid://bp6lxfpt2wrka"]
 
 [ext_resource type="PackedScene" uid="uid://bp20wpas8v7u3" path="res://game/entity/static_entity.tscn" id="1_gnd1l"]
 [ext_resource type="Texture2D" uid="uid://bbx1fqlicadpc" path="res://assets/objects/box.png" id="2_afg24"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h0kki"]
-radius = 44.0114
+radius = 37.0135
+
+[sub_resource type="Animation" id="Animation_sogt0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.1, 0.9)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 3
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_twkuy"]
+resource_name = "hit"
+length = 0.8
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:skew")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8),
+"transitions": PackedFloat32Array(0.5, 2, 0.5, 2, 0.5, 2, 0.5, 2, 0.5, 2, 0.5, 2, 0.5, 2, 0.5, 2, 0.5),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.20944, 0.0, 0.15708, 0.0, -0.10472, 0.0, 0.0698132, 0.0, -0.0506145, 0.0, -0.0349066, 0.0, 0.00872665, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_7fxac"]
+resource_name = "idle"
+length = 3.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.05, 0.95), Vector2(0.95, 1.05)]
+}
+
+[sub_resource type="Animation" id="Animation_q76gh"]
+resource_name = "open"
+length = 2.0
+step = 0.025
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3kha2"]
+_data = {
+"RESET": SubResource("Animation_sogt0"),
+"hit": SubResource("Animation_twkuy"),
+"idle": SubResource("Animation_7fxac"),
+"open": SubResource("Animation_q76gh")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wxlaj"]
+animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8ye5p"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_f4q7t"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_krndo"]
+graph_offset = Vector2(-178.147, -49.7669)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_8ye5p")
+nodes/Animation/position = Vector2(160, 60)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_wxlaj")
+"nodes/Animation 2/position" = Vector2(194, 246)
+nodes/OneShot/node = SubResource("AnimationNodeOneShot_f4q7t")
+nodes/OneShot/position = Vector2(500, 120)
+nodes/output/position = Vector2(840, 160)
+node_connections = [&"OneShot", 0, &"Animation", &"OneShot", 1, &"Animation 2", &"output", 0, &"OneShot"]
 
 [node name="Box" instance=ExtResource("1_gnd1l")]
 
-[node name="HitAreaComponent2D" parent="." index="1"]
+[node name="HealthComponent" parent="." index="0"]
+max_health = 3
+
+[node name="HitAreaComponent2D" parent="." index="1" node_paths=PackedStringArray("health_component")]
 position = Vector2(-4, 3)
+health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitAreaComponent2D" index="0"]
 position = Vector2(4, -3)
@@ -17,8 +115,36 @@ shape = SubResource("CircleShape2D_h0kki")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
 position = Vector2(-4, 2)
-polygon = PackedVector2Array(-27, -32, 11, -40, 36, -30, 34, 21, 4, 35, -32, 19)
+polygon = PackedVector2Array(-23, -29, 11, -38, 34, -30, 33, 20, 4, 32, -27, 18)
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="3"]
 position = Vector2(-4, 3)
+scale = Vector2(1.1, 0.9)
 texture = ExtResource("2_afg24")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_3kha2")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="5"]
+tree_root = SubResource("AnimationNodeBlendTree_krndo")
+anim_player = NodePath("../AnimationPlayer")
+parameters/current_length = 3.0
+parameters/current_position = 2.42419
+parameters/current_delta = 0.0166667
+parameters/Animation/current_length = 3.0
+parameters/Animation/current_position = 2.42419
+parameters/Animation/current_delta = 0.0166667
+"parameters/Animation 2/current_length" = 0.2
+"parameters/Animation 2/current_position" = 0.2
+"parameters/Animation 2/current_delta" = 0.0273587
+parameters/OneShot/current_length = 3.0
+parameters/OneShot/current_position = 2.42419
+parameters/OneShot/current_delta = 0.0166667
+parameters/OneShot/active = false
+parameters/OneShot/internal_active = false
+parameters/OneShot/request = 0
+parameters/output/current_length = 3.0
+parameters/output/current_position = 2.42419
+parameters/output/current_delta = 0.0166667

@@ -4,4 +4,3 @@ class_name HitAreaComponent2D extends Area2D
 
 func damage(attack: Attack):
 	health_component.damage(attack)
-

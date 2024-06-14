@@ -22,7 +22,10 @@ Settings="*res://core/settings.gd"
 
 [display]
 
+window/size/viewport_width=864
+window/size/viewport_height=486
 window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [input]
 
