@@ -11,6 +11,5 @@ script = ExtResource("1_g08gg")
 script = ExtResource("1_7ojhn")
 max_health = 10
 
-[node name="HitAreaComponent2D" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HitAreaComponent2D" type="Area2D" parent="."]
 script = ExtResource("2_50hl2")
-health_component = NodePath("")

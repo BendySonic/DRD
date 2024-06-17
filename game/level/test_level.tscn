@@ -1,10 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0pyjsb38uiyu"]
+[gd_scene load_steps=7 format=3 uid="uid://c0pyjsb38uiyu"]
 
 [ext_resource type="PackedScene" uid="uid://dxa4cyi8mnu66" path="res://game/level/level.tscn" id="1_k3iji"]
 [ext_resource type="PackedScene" uid="uid://bp6lxfpt2wrka" path="res://game/obejcts/box.tscn" id="2_83p5t"]
 [ext_resource type="PackedScene" uid="uid://br0b1wokh14m1" path="res://game/character/cool_guy.tscn" id="2_e7bak"]
+[ext_resource type="Script" path="res://game/level/test_level.gd" id="2_idsl7"]
+[ext_resource type="PackedScene" uid="uid://kjpxuehncsoa" path="res://game/obejcts/lever.tscn" id="4_cqwv0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cx5ku"]
+font_size = 100
+font_color = Color(0.475409, 0.730045, 0, 1)
+outline_size = 20
+outline_color = Color(1, 0, 1, 1)
 
 [node name="Level" instance=ExtResource("1_k3iji")]
+script = ExtResource("2_idsl7")
 
 [node name="ColorRect" type="ColorRect" parent="." index="1"]
 offset_left = -4999.0
@@ -14,11 +23,60 @@ offset_bottom = 5000.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." index="2"]
 
-[node name="Box" parent="CanvasModulate" index="0" instance=ExtResource("2_83p5t")]
-position = Vector2(326, 192)
-
 [node name="Box" parent="World/Objects" index="0" instance=ExtResource("2_83p5t")]
-position = Vector2(-235, -133)
+position = Vector2(19, -106)
+
+[node name="Box2" parent="World/Objects" index="1" instance=ExtResource("2_83p5t")]
+position = Vector2(91, -106)
+
+[node name="Box3" parent="World/Objects" index="2" instance=ExtResource("2_83p5t")]
+position = Vector2(165, -106)
+
+[node name="Box4" parent="World/Objects" index="3" instance=ExtResource("2_83p5t")]
+position = Vector2(239, -104)
+
+[node name="Box5" parent="World/Objects" index="4" instance=ExtResource("2_83p5t")]
+position = Vector2(-55, -106)
+
+[node name="Box6" parent="World/Objects" index="5" instance=ExtResource("2_83p5t")]
+position = Vector2(-130, -106)
+
+[node name="Box7" parent="World/Objects" index="6" instance=ExtResource("2_83p5t")]
+position = Vector2(-135, -28)
+
+[node name="Box8" parent="World/Objects" index="7" instance=ExtResource("2_83p5t")]
+position = Vector2(-136, 54)
+
+[node name="Box10" parent="World/Objects" index="8" instance=ExtResource("2_83p5t")]
+position = Vector2(-62, 137)
+
+[node name="Box9" parent="World/Objects" index="9" instance=ExtResource("2_83p5t")]
+position = Vector2(-140, 135)
+
+[node name="Box11" parent="World/Objects" index="10" instance=ExtResource("2_83p5t")]
+position = Vector2(14, 137)
+
+[node name="Box12" parent="World/Objects" index="11" instance=ExtResource("2_83p5t")]
+position = Vector2(87, 139)
+
+[node name="Box13" parent="World/Objects" index="12" instance=ExtResource("2_83p5t")]
+position = Vector2(159, 139)
+
+[node name="Box14" parent="World/Objects" index="13" instance=ExtResource("2_83p5t")]
+position = Vector2(233, 138)
+
+[node name="lever" parent="World/Objects" index="14" instance=ExtResource("4_cqwv0")]
+position = Vector2(491, 19)
 
 [node name="CoolGuy" parent="." index="4" instance=ExtResource("2_e7bak")]
+unique_name_in_owner = true
 movement_speed = 60.0
+
+[node name="Victory" type="Label" parent="CoolGuy" index="8"]
+visible = false
+offset_left = -214.0
+offset_top = -67.0
+offset_right = 196.0
+offset_bottom = 70.0
+text = "ПОБЕДА"
+label_settings = SubResource("LabelSettings_cx5ku")

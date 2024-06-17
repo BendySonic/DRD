@@ -1,7 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bp6lxfpt2wrka"]
+[gd_scene load_steps=17 format=3 uid="uid://bp6lxfpt2wrka"]
 
 [ext_resource type="PackedScene" uid="uid://bp20wpas8v7u3" path="res://game/entity/static_entity.tscn" id="1_gnd1l"]
 [ext_resource type="Texture2D" uid="uid://bbx1fqlicadpc" path="res://assets/objects/box.png" id="2_afg24"]
+[ext_resource type="PackedScene" uid="uid://baoheietlpnng" path="res://core/action_components/action_e.tscn" id="3_ikdju"]
+[ext_resource type="PackedScene" uid="uid://b5wk8pha0nb3x" path="res://core/action_components/player_detected.tscn" id="4_du5bg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h0kki"]
 radius = 37.0135
@@ -54,7 +56,6 @@ tracks/0/keys = {
 resource_name = "idle"
 length = 3.0
 loop_mode = 1
-step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -100,7 +101,17 @@ nodes/OneShot/position = Vector2(500, 120)
 nodes/output/position = Vector2(840, 160)
 node_connections = [&"OneShot", 0, &"Animation", &"OneShot", 1, &"Animation 2", &"output", 0, &"OneShot"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_hs3rg"]
+font_size = 15
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vkto8"]
+radius = 90.0056
+
 [node name="Box" instance=ExtResource("1_gnd1l")]
+collision_layer = 4
+collision_mask = 2
 
 [node name="HealthComponent" parent="." index="0"]
 max_health = 3
@@ -130,21 +141,23 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="." index="5"]
 tree_root = SubResource("AnimationNodeBlendTree_krndo")
 anim_player = NodePath("../AnimationPlayer")
-parameters/current_length = 3.0
-parameters/current_position = 2.42419
-parameters/current_delta = 0.0166667
-parameters/Animation/current_length = 3.0
-parameters/Animation/current_position = 2.42419
-parameters/Animation/current_delta = 0.0166667
-"parameters/Animation 2/current_length" = 0.2
-"parameters/Animation 2/current_position" = 0.2
-"parameters/Animation 2/current_delta" = 0.0273587
-parameters/OneShot/current_length = 3.0
-parameters/OneShot/current_position = 2.42419
-parameters/OneShot/current_delta = 0.0166667
 parameters/OneShot/active = false
 parameters/OneShot/internal_active = false
 parameters/OneShot/request = 0
-parameters/output/current_length = 3.0
-parameters/output/current_position = 2.42419
-parameters/output/current_delta = 0.0166667
+
+[node name="Action_E" parent="." index="6" instance=ExtResource("3_ikdju")]
+
+[node name="E" type="Label" parent="." index="7"]
+visible = false
+texture_filter = 1
+offset_left = -5.0
+offset_top = -65.0
+offset_right = 4.0
+offset_bottom = -42.0
+text = "E"
+label_settings = SubResource("LabelSettings_hs3rg")
+
+[node name="Player_Detected" parent="." index="8" instance=ExtResource("4_du5bg")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Detected" index="0"]
+shape = SubResource("CircleShape2D_vkto8")

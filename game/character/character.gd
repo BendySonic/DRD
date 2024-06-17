@@ -10,7 +10,14 @@ extends Entity
 @onready var cur_state:String = "idle"
 @onready var last_direction:int = 1
 
+func _unhandled_input(event):
+	if event.is_action_pressed("action_e"):
+		if $Action_E.has_overlapping_bodies():
+			var col = $Action_E.get_overlapping_bodies()[0]
+			col.get_node("Action_E").action_e = true
+
 # TODO можно переделать на стейт машину res://core/stateMachine/
+# очень сложно, этим заниматься никто не будет XD
 func _process(delta):
 	var direction = Input.get_vector("movement_left", "movement_right", "movement_up", "movement_down")
 	

@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://kjpxuehncsoa"]
+
+[ext_resource type="Script" path="res://game/obejcts/lever.gd" id="1_d8gww"]
+[ext_resource type="Texture2D" uid="uid://b8m2t8yqg7cfl" path="res://icon.svg" id="1_uer3m"]
+[ext_resource type="PackedScene" uid="uid://baoheietlpnng" path="res://core/action_components/action_e.tscn" id="3_5v64u"]
+[ext_resource type="PackedScene" uid="uid://b5wk8pha0nb3x" path="res://core/action_components/player_detected.tscn" id="4_on82k"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wby7c"]
+font_size = 15
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_njb5e"]
+radius = 116.004
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_081qd"]
+radius = 43.1856
+
+[node name="lever" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_d8gww")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_uer3m")
+
+[node name="Action_E" parent="." instance=ExtResource("3_5v64u")]
+
+[node name="E" type="Label" parent="."]
+visible = false
+texture_filter = 1
+offset_left = -5.0
+offset_top = -80.0
+offset_right = 4.0
+offset_bottom = -57.0
+text = "E"
+label_settings = SubResource("LabelSettings_wby7c")
+
+[node name="Player_Detected" parent="." instance=ExtResource("4_on82k")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Detected"]
+shape = SubResource("CircleShape2D_njb5e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_081qd")

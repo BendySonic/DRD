@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://br0b1wokh14m1"]
+[gd_scene load_steps=18 format=3 uid="uid://br0b1wokh14m1"]
 
 [ext_resource type="Texture2D" uid="uid://byuwwnuti0d3e" path="res://assets/cool_guy/cool_guy.png" id="1_046ds"]
 [ext_resource type="PackedScene" uid="uid://dtol24akmqixn" path="res://game/entity/entity.tscn" id="1_dbfcc"]
@@ -9,8 +9,8 @@ radius = 13.0
 height = 84.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i8nak"]
-radius = 17.0
-height = 92.0
+radius = 18.0
+height = 100.0
 
 [sub_resource type="Animation" id="Animation_kugdi"]
 resource_name = "Flip"
@@ -156,7 +156,6 @@ tracks/9/keys = {
 resource_name = "idle"
 length = 2.4
 loop_mode = 1
-step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -350,6 +349,7 @@ fadeout_time = 0.05
 animation = &"moving"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_m5asm"]
+graph_offset = Vector2(-46, -73)
 nodes/Flip/node = SubResource("AnimationNodeAnimation_orbso")
 nodes/Flip/position = Vector2(480, 280)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_px2ev")
@@ -363,7 +363,12 @@ nodes/moving/position = Vector2(80, 180)
 nodes/output/position = Vector2(1060, 120)
 node_connections = [&"OneShot", 0, &"OneShot 2", &"OneShot", 1, &"Flip", &"OneShot 2", 0, &"Idle", &"OneShot 2", 1, &"moving", &"output", 0, &"OneShot"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_fcfbg"]
+radius = 83.0963
+
 [node name="CoolGuy" instance=ExtResource("1_dbfcc")]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_tw7co")
 movement_speed = 365.0
 movement_acceleration = 9.0
@@ -372,15 +377,12 @@ movement_friction = 2.2
 [node name="HealthComponent" parent="." index="0"]
 max_health = 11
 
-[node name="HitAreaComponent2D" parent="." index="1" node_paths=PackedStringArray("health_component")]
-health_component = NodePath("../HealthComponent")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitAreaComponent2D" index="0"]
 position = Vector2(-2, 6)
 shape = SubResource("CapsuleShape2D_r7muh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
-position = Vector2(-2, 6)
+position = Vector2(-2, 10)
 shape = SubResource("CapsuleShape2D_i8nak")
 
 [node name="Sprite2D" type="Node2D" parent="." index="3"]
@@ -443,30 +445,17 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="." index="6"]
 tree_root = SubResource("AnimationNodeBlendTree_m5asm")
 anim_player = NodePath("../AnimationPlayer")
-parameters/current_length = 2.4
-parameters/current_position = 0.121062
-parameters/current_delta = 0.0333333
-parameters/Flip/current_length = 0.3
-parameters/Flip/current_position = 0.3
-parameters/Flip/current_delta = 0.0303077
-parameters/Idle/current_length = 2.4
-parameters/Idle/current_position = 0.121062
-parameters/Idle/current_delta = 0.0333333
-parameters/OneShot/current_length = 2.4
-parameters/OneShot/current_position = 0.121062
-parameters/OneShot/current_delta = 0.0333333
 parameters/OneShot/active = false
 parameters/OneShot/internal_active = false
 parameters/OneShot/request = 0
-"parameters/OneShot 2/current_length" = 2.4
-"parameters/OneShot 2/current_position" = 0.121062
-"parameters/OneShot 2/current_delta" = 0.0333333
 "parameters/OneShot 2/active" = false
 "parameters/OneShot 2/internal_active" = false
 "parameters/OneShot 2/request" = 0
-parameters/moving/current_length = 1.2
-parameters/moving/current_position = 1.1318
-parameters/moving/current_delta = 0.0166667
-parameters/output/current_length = 2.4
-parameters/output/current_position = 0.121062
-parameters/output/current_delta = 0.0333333
+
+[node name="Action_E" type="Area2D" parent="." index="7"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Action_E" index="0"]
+visible = false
+shape = SubResource("CircleShape2D_fcfbg")
